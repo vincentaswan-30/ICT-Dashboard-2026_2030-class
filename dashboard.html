@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body style="font-family: Arial; text-align:center;">
+
+    <h1>Welcome to ICT Dashboard 🎉</h1>
+    <h2 id="studentName"></h2>
+
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        var student = localStorage.getItem("student");
+
+        if(student === null) {
+            window.location.href = "index.html";
+        } else {
+            document.getElementById("studentName").innerText = "Admission: " + student;
+        }
+
+        function logout() {
+            localStorage.removeItem("student");
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>
