@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ICT Dashboard</title>
+    <title>ICT Dashboard Login</title>
 </head>
-<body style="font-family: Arial; text-align: center;">
+<body style="font-family: Arial; text-align:center;">
 
-    <h1>Welcome to ICT Dashboard</h1>
-    <p>This is my first website hosted on GitHub 🚀</p>
+    <h2>ICT Dashboard Login</h2>
 
-    <button onclick="alert('Login successful!')">Click Me</button>
+    <input type="text" id="username" placeholder="Enter Admission Number"><br><br>
+    <input type="password" id="password" placeholder="Enter Password"><br><br>
+
+    <button onclick="login()">Login</button>
+
+    <p id="message" style="color:red;"></p>
+
+    <script>
+        function login() {
+            var admission = document.getElementById("username").value;
+            var pass = document.getElementById("password").value;
+
+            if(admission !== "" && pass === "ICT@2026") {
+                localStorage.setItem("student", admission);
+                window.location.href = "dashboard.html";
+            } else {
+                document.getElementById("message").innerText = "Wrong password or empty admission!";
+            }
+        }
+    </script>
 
 </body>
-  </html>
+</html>
