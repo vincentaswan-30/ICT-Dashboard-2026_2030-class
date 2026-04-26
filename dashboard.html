@@ -1,60 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>ICT Dashboard</title>
 
     <style>
         body {
             margin: 0;
             font-family: Arial;
-            background: #f4f4f4;
+            display: flex;
         }
 
-        .header {
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
             background: #1e3c72;
             color: white;
-            padding: 15px;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
             text-align: center;
         }
 
-        .container {
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            background: #2a5298;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Main content */
+        .main {
+            flex: 1;
             padding: 20px;
-            text-align: center;
+            background: #f4f4f4;
         }
 
         .card {
             background: white;
             padding: 20px;
-            margin: 20px auto;
-            width: 300px;
+            margin: 10px 0;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-        }
-
-        button {
-            background: red;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="header">
-        <h2>ICT Student Dashboard</h2>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('profile')">Profile</button>
+        <button onclick="showPage('settings')">Settings</button>
     </div>
 
-    <div class="container">
+    <!-- Main Content -->
+    <div class="main">
 
-        <div class="card">
-            <h3 id="studentName"></h3>
-            <p>Welcome to your dashboard 🎉</p>
+        <!-- HOME -->
+        <div id="home">
+            <div class="card">
+                <h3>Results</h3>
+                <p id="results"></p>
+            </div>
+
+            <div class="card">
+                <h3>Updates</h3>
+                <p>No new updates</p>
+            </div>
+
+            <div class="card">
+                <h3>Timetable</h3>
+                <p>Mon - ICT | Tue - Math | Wed - English</p>
+            </div>
         </div>
 
-        <button onclick="logout()">Logout</button>
+        <!-- PROFILE -->
+        <div id="profile" style="display:none;">
+            <div class="card">
+                <h3>Student Profile</h3>
+                <p id="profileInfo"></p>
+            </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div id="settings" style="display:none;">
+            <div class="card">
+                <h3>Settings</h3>
+
+                <button onclick="logout()">Logout</button><br><br>
+                <button onclick="deleteProfile()">Delete Profile</button><br><br>
+                <button onclick="addAccount()">Add Account</button>
+            </div>
+        </div>
 
     </div>
 
@@ -63,15 +107,57 @@
 
         if(student === null) {
             window.location.href = "index.html";
+        }
+
+        // Fake database
+        var data = {
+            "ICT001": {
+                name: "John Doe",
+                course: "ICT",
+                level: "Diploma",
+                year: "2024",
+                results: "Math: A | ICT: A | English: B"
+            }
+        };
+
+        // Show student info
+        if(data[student]) {
+            document.getElementById("results").innerText = data[student].results;
+
+            document.getElementById("profileInfo").innerText =
+                "Name: " + data[student].name + "\n" +
+                "Admission: " + student + "\n" +
+                "Course: " + data[student].course + "\n" +
+                "Level: " + data[student].level + "\n" +
+                "Year: " + data[student].year;
         } else {
-            document.getElementById("studentName").innerText = "Admission: " + student;
+            document.getElementById("results").innerText = "No results found";
+            document.getElementById("profileInfo").innerText = "No profile data";
+        }
+
+        // Navigation
+        function showPage(page) {
+            document.getElementById("home").style.display = "none";
+            document.getElementById("profile").style.display = "none";
+            document.getElementById("settings").style.display = "none";
+
+            document.getElementById(page).style.display = "block";
         }
 
         function logout() {
             localStorage.removeItem("student");
             window.location.href = "index.html";
         }
+
+        function deleteProfile() {
+            alert("Profile deleted (simulation)");
+            logout();
+        }
+
+        function addAccount() {
+            alert("Feature coming soon");
+        }
     </script>
 
 </body>
-    </html>
+                                                         </html>
